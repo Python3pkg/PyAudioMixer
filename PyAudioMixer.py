@@ -20,7 +20,7 @@ several different inputs and outputs.
 
 import time
 import wave
-import thread
+import _thread
 
 import numpy
 import pyaudio
@@ -618,7 +618,7 @@ class Mixer:
         self.samplewidth = 2
         self.srcs = []
         self.mic = microphone
-        self.lock = thread.allocate_lock()
+        self.lock = _thread.allocate_lock()
         self.pyaudio = pyaudio.PyAudio()
         # It's important to open Input, then Output (not sure why)
         # Other direction gives very annoying sound errors (1/2 rate?)
@@ -643,7 +643,7 @@ class Mixer:
     def start(self):
         """Start separate mixing thread"""
         #def f(self):
-        self.thread = thread.start_new_thread(self.thread, ())
+        self.thread = _thread.start_new_thread(self.thread, ())
 
     def thread(self):
         while True:
@@ -855,8 +855,8 @@ if __name__ == "__main__":
     import sys
     def log_uncaught_exceptions(ex_cls, ex, tb):
 
-        print (''.join(traceback.format_tb(tb)))
-        print ('{0}: {1}'.format(ex_cls, ex))
+        print((''.join(traceback.format_tb(tb))))
+        print(('{0}: {1}'.format(ex_cls, ex)))
 
     sys.excepthook = log_uncaught_exceptions
 
@@ -867,9 +867,9 @@ if __name__ == "__main__":
 
     mic = MicInput(mix2, 4)
     mic.play(4, 2)
-    print "ho"
+    print("ho")
     time.sleep(5)
-    print "hey"
+    print("hey")
     mic.stop()
 
     #snd = FrequencyGenerator(mix)
